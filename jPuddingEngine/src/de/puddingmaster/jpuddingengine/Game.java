@@ -3,16 +3,12 @@ package de.puddingmaster.jpuddingengine;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JOptionPane;
 
 import de.fridtjof_de.puddingapi.logger;
 import de.puddingmaster.jpuddingengine.display.Display;
 import de.puddingmaster.jpuddingengine.gfx.Assets;
 import de.puddingmaster.jpuddingengine.gfx.GameCamera;
-import de.puddingmaster.jpuddingengine.gfx.ImageLoader;
-import de.puddingmaster.jpuddingengine.gfx.SpriteSheet;
 import de.puddingmaster.jpuddingengine.input.KeyManager;
 import de.puddingmaster.jpuddingengine.input.MouseManager;
 import de.puddingmaster.jpuddingengine.networking.GameClient;

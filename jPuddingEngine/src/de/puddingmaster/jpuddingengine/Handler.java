@@ -1,13 +1,8 @@
 package de.puddingmaster.jpuddingengine;
 
-import java.awt.Dimension;
-
-import de.puddingmaster.jpuddingengine.display.Display;
 import de.puddingmaster.jpuddingengine.gfx.GameCamera;
 import de.puddingmaster.jpuddingengine.input.KeyManager;
 import de.puddingmaster.jpuddingengine.input.MouseManager;
-import de.puddingmaster.jpuddingengine.networking.GameClient;
-import de.puddingmaster.jpuddingengine.networking.GameServer;
 import de.puddingmaster.jpuddingengine.worlds.World;
 
 public class Handler {
