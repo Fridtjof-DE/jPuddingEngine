@@ -5,14 +5,16 @@ public class Launcher {
 public static long START_TIME = System.currentTimeMillis();
 	
 	public static void main(String[] args) {
+		String title = EngineCore.NAME+ " - " + EngineCore.VERSION;
 		int height = 720;
 		int width = height / 9 * 16;
 		boolean fullscreen = false;
+		boolean debug = true;
 		
-		launchEngine(width, height, fullscreen);
+		launchEngine(title, width, height, fullscreen, debug);
 	}
 	
-	public static void launchEngine(int width, int height, boolean fullscreen) {
+	public static void launchEngine(String title, int width, int height, boolean fullscreen, boolean debug) {
 		System.out.println("Launching game...");
 		/*if(fullscreen) {
 			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -21,7 +23,7 @@ public static long START_TIME = System.currentTimeMillis();
 		}*/
 		//width = 1920;
 		//height = 1080;
-		EngineCore engineCore = new EngineCore(width, height, fullscreen);
+		EngineCore engineCore = new EngineCore(title, width, height, fullscreen, debug);
 		engineCore.start();
 	}
 }

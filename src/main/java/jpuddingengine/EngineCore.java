@@ -10,9 +10,10 @@ public class EngineCore implements Runnable {
 
 	private int width, height;
 	private boolean fullscreen;
+	private boolean debug;
 	public static final String VERSION = "0.1.0-Snapshot";
 	public static final String NAME = "jPuddingEngine";
-	public String title = NAME + " " + VERSION;
+	public String title;
 	
 	private boolean running = false;
 	private Thread thread;
@@ -23,17 +24,19 @@ public class EngineCore implements Runnable {
 	
 	private Handler handler;
 	
-	public EngineCore(int width, int height, boolean fullscreen) {
+	public EngineCore(String title, int width, int height, boolean fullscreen, boolean debug) {
+		this.title = title;
 		this.width = width;
 		this.height = height;
 		this.fullscreen = fullscreen;
+		this.debug = debug;
 	}
 	
 	public void run() {
 		init();
 		
 		int tps_limit = 60;
-		int fps_limit = 60000;
+		int fps_limit = 60;
 		double timePerTick = 1000000000 / tps_limit;
 		double timePerFrame = 1000000000 / fps_limit;
 		double delta_tps = 0;
@@ -65,7 +68,9 @@ public class EngineCore implements Runnable {
 			}
 			
 			if(timer >= 1000000000) {
-				Display.updateTitle(title + " - TPS: " + ticks + ", FPS: " + frames);
+				if(debug) {
+					Display.updateTitle(title + " - TPS: " + ticks + ", FPS: " + frames);
+				}
 				ticks = 0;
 				frames = 0;
 				timer = 0;
