@@ -77,8 +77,16 @@ public class EngineCore implements Runnable {
 		
 	}
 	
-	private void start() {
-		
+	public synchronized void start() {
+		if(running) {
+			return;
+		} else {
+			running = true;
+			thread = new Thread(this);
+			thread.setName("Main thread");
+			System.out.println("Starting main thread...");
+			thread.start();
+		}
 	}
 	
 	private void stop() {
