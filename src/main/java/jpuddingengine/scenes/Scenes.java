@@ -2,7 +2,6 @@ package jpuddingengine.scenes;
 
 import java.awt.Graphics;
 
-import jpuddingengine.Engine;
 import jpuddingengine.Handler;
 
 public abstract class Scenes {

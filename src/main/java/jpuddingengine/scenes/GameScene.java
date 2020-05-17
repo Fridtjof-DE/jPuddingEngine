@@ -3,10 +3,6 @@ package jpuddingengine.scenes;
 import java.awt.Graphics;
 
 import jpuddingengine.Handler;
-import jpuddingengine.entites.Player;
-import jpuddingengine.entites.Tree;
-import jpuddingengine.gfx.Assets;
-import jpuddingengine.tiles.Tile;
 import jpuddingengine.worlds.World;
 
 public class GameScene extends Scenes {
