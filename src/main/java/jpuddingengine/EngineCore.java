@@ -55,7 +55,7 @@ public class EngineCore implements Runnable {
 			}
 			
 			if(timer >= 1000000000) {
-				Display.updateTitle(title + " - TPS: " + ticks + ", FPS: " + frames);
+				//Display.updateTitle(title + " - TPS: " + ticks + ", FPS: " + frames);
 				ticks = 0;
 				frames = 0;
 				timer = 0;
