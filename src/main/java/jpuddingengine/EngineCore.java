@@ -5,10 +5,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import jpuddingengine.gfx.Display;
+import jpuddingengine.scenes.DefaultScene;
+import jpuddingengine.scenes.Scenes;
 
 public class EngineCore implements Runnable {
 
-	private int width, height;
+	private static int WIDTH, HEIGHT;
 	private boolean fullscreen;
 	private boolean debug;
 	public static final String VERSION = "0.1.0-Snapshot";
@@ -24,10 +26,12 @@ public class EngineCore implements Runnable {
 	
 	private Handler handler;
 	
+	public DefaultScene defaultScene;
+	
 	public EngineCore(String title, int width, int height, boolean fullscreen, boolean debug) {
 		this.title = title;
-		this.width = width;
-		this.height = height;
+		this.WIDTH = width;
+		this.HEIGHT = height;
 		this.fullscreen = fullscreen;
 		this.debug = debug;
 	}
@@ -82,16 +86,21 @@ public class EngineCore implements Runnable {
 	
 	private void init() {
 		System.out.println("Initialisation...");
-		display = new Display(title, width, height, fullscreen);
+		display = new Display(title, WIDTH, HEIGHT, fullscreen);
 
-		//handler = new Handler(this);
+		handler = new Handler(this);
 		
 		long boottime = System.currentTimeMillis() - Launcher.START_TIME;
 		System.out.println("Game successfully started in " + boottime + "ms!");
+		
+		defaultScene = new DefaultScene(handler);
+		Scenes.setState(defaultScene);
 	}
 
 	private void tick() {
-		
+		if(Scenes.getState() != null) {
+			Scenes.getState().tick();
+		}
 	}
 	
 	public void render() {
@@ -101,16 +110,17 @@ public class EngineCore implements Runnable {
 			return;
 		}
 		g = bs.getDrawGraphics();
+		
 		//Clear Screen
-		g.clearRect(0, 0, width, height);
+		g.clearRect(0, 0, WIDTH, HEIGHT);
 		//Draw Here!
 		g.setColor(Color.GRAY);
-		g.fillRect(0, 0, width, height);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		
-		//if(Scenes.getState() != null) {
-		//	Scenes.getState().render(g);
-		//}
+		if(Scenes.getState() != null) {
+			Scenes.getState().render(g);
+		}
 
 		//End Drawing!
 		bs.show();
@@ -141,5 +151,14 @@ public class EngineCore implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	//Getters
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	public int getHeight() {
+		return HEIGHT;
 	}
 }
