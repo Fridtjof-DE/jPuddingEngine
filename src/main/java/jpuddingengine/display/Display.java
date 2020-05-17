@@ -1,24 +1,25 @@
-package jpuddingengine.gfx;
+package jpuddingengine.display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 import javax.swing.JFrame;
 
 public class Display {
 	
+	private static boolean fullscreen = false;
 	private static JFrame frame;
 	private Canvas canvas;
 	
-	private String title;
+	private String title, version;
 	private int width, height;
-	private boolean fullscreen = false;
 	
-	public Display(String title, int width, int height, boolean fullscreen) {
+	public Display(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
-		this.fullscreen = fullscreen;
 		createDisplay();
 	}
 	
@@ -30,6 +31,9 @@ public class Display {
 		frame.setLocationRelativeTo(null);
 		
 		if(fullscreen) {
+			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			width = gd.getDisplayMode().getWidth();
+			height = gd.getDisplayMode().getHeight();
 			frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 			frame.setUndecorated(true);
 		}
