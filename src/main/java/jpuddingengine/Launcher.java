@@ -1,5 +1,8 @@
 package jpuddingengine;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 public class Launcher {
 	
 public static long START_TIME = System.currentTimeMillis();
@@ -16,13 +19,11 @@ public static long START_TIME = System.currentTimeMillis();
 	
 	public static void launchEngine(String title, int width, int height, boolean fullscreen, boolean debug) {
 		System.out.println("Launching game...");
-		/*if(fullscreen) {
+		if(fullscreen) {
 			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			width = gd.getDisplayMode().getWidth();
 			height = gd.getDisplayMode().getHeight();
-		}*/
-		//width = 1920;
-		//height = 1080;
+		}
 		EngineCore engineCore = new EngineCore(title, width, height, fullscreen, debug);
 		engineCore.start();
 	}
