@@ -1,5 +1,9 @@
 package jpuddingengine;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+
 import jpuddingengine.gfx.Display;
 
 public class EngineCore implements Runnable {
@@ -12,6 +16,12 @@ public class EngineCore implements Runnable {
 	
 	private boolean running = false;
 	private Thread thread;
+	
+	private Display display;
+	private BufferStrategy bs;
+	private Graphics g;
+	
+	private Handler handler;
 	
 	public EngineCore(int width, int height, boolean fullscreen) {
 		this.width = width;
@@ -55,7 +65,7 @@ public class EngineCore implements Runnable {
 			}
 			
 			if(timer >= 1000000000) {
-				//Display.updateTitle(title + " - TPS: " + ticks + ", FPS: " + frames);
+				Display.updateTitle(title + " - TPS: " + ticks + ", FPS: " + frames);
 				ticks = 0;
 				frames = 0;
 				timer = 0;
@@ -66,7 +76,13 @@ public class EngineCore implements Runnable {
 	}
 	
 	private void init() {
+		System.out.println("Initialisation...");
+		display = new Display(title, width, height, fullscreen);
 
+		//handler = new Handler(this);
+		
+		long boottime = System.currentTimeMillis() - Launcher.START_TIME;
+		System.out.println("Game successfully started in " + boottime + "ms!");
 	}
 
 	private void tick() {
@@ -74,7 +90,26 @@ public class EngineCore implements Runnable {
 	}
 	
 	public void render() {
+		bs = display.getCanvas().getBufferStrategy();
+		if(bs == null) {
+			display.getCanvas().createBufferStrategy(3);
+			return;
+		}
+		g = bs.getDrawGraphics();
+		//Clear Screen
+		g.clearRect(0, 0, width, height);
+		//Draw Here!
+		g.setColor(Color.GRAY);
+		g.fillRect(0, 0, width, height);
 		
+		
+		//if(Scenes.getState() != null) {
+		//	Scenes.getState().render(g);
+		//}
+
+		//End Drawing!
+		bs.show();
+		g.dispose();
 	}
 	
 	public synchronized void start() {
@@ -89,7 +124,17 @@ public class EngineCore implements Runnable {
 		}
 	}
 	
-	private void stop() {
-		
+	public synchronized void stop() {
+		System.out.println("Stopping game...");
+		if(!running) {
+			return;
+		} else {
+			running = false;
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
