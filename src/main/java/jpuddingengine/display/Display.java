@@ -16,10 +16,11 @@ public class Display {
 	private String title, version;
 	private int width, height;
 	
-	public Display(String title, int width, int height) {
+	public Display(String title, int width, int height, boolean fullscreen) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		this.fullscreen = fullscreen;
 		createDisplay();
 	}
 	
@@ -31,9 +32,6 @@ public class Display {
 		frame.setLocationRelativeTo(null);
 		
 		if(fullscreen) {
-			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-			width = gd.getDisplayMode().getWidth();
-			height = gd.getDisplayMode().getHeight();
 			frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 			frame.setUndecorated(true);
 		}

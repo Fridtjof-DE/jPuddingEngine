@@ -20,9 +20,10 @@ public class Engine implements Runnable{
 	
 	private Display display;
 	private int width, height;
-	public String version = "Alpha #1";
-	public String name = "PuddingEngine";
-	public String title = name + " " + version;
+	public static String VERSION = "0.1.0-Snapshot";
+	public static String NAME = "PuddingEngine";
+	public String title;
+	private boolean fullscreen, debug;
 	
 	private boolean running = false;
 	private Thread thread;
@@ -48,9 +49,12 @@ public class Engine implements Runnable{
 	public GameClient socketClient;
 	private GameServer socketServer;
 	
-	public Engine(int width, int height) {
+	public Engine(String title, int width, int height, boolean fullscreen, boolean debug) {
+		this.title = title;
 		this.width = width;
 		this.height = height;
+		this.fullscreen = fullscreen;
+		this.debug = debug;
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
 	}
@@ -58,7 +62,7 @@ public class Engine implements Runnable{
 	private void init() {
 		System.out.println("Initialisation...");
 		
-		display = new Display(title, width, height);
+		display = new Display(title, width, height, fullscreen);
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
 		display.getFrame().addMouseMotionListener(mouseManager);
